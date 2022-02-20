@@ -14,3 +14,13 @@ Making NomadCoffee App with React native, Expo, Apollo client, Graphql, Typescri
 
 - [x] Navigation
 - [x] User Authentication
+
+### Day 27, 28
+
+- [x] Day off
+
+### Day 29, 30, 31
+
+- [x] Home tab
+- [x] Infinite Scroll
+- [x] Pull to refresh

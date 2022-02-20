@@ -3,6 +3,7 @@ import { ThemeConsumer } from "styled-components/native";
 import { RootNavParamList } from "../navTypes";
 import LogInNav from "./LogInNav";
 import TabsNav from "./TabsNav";
+import UploadNav from "./UploadNav";
 
 const Stack = createNativeStackNavigator<RootNavParamList>();
 
@@ -26,7 +27,23 @@ const RootNav = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="LogInNav" component={LogInNav} />
+          <Stack.Screen
+            options={{
+              presentation: "fullScreenModal",
+              headerShown: false,
+            }}
+            name="LogInNav"
+            component={LogInNav}
+          />
+
+          <Stack.Screen
+            name="UploadNav"
+            component={UploadNav}
+            options={{
+              headerShown: false,
+              presentation: "modal",
+            }}
+          />
         </Stack.Navigator>
       )}
     </ThemeConsumer>

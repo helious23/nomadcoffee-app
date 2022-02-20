@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LoggedOutNavParamList } from "../navTypes";
+import { LoggedOutNavParamList, LogInNavStackNavParamList } from "../navTypes";
 import AuthLayout from "../components/auth/AuthLayout";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { TextInput, View } from "react-native";
@@ -42,7 +42,7 @@ interface IFormCreateAccount {
 }
 
 const CreateAccount: React.FC<
-  NativeStackScreenProps<LoggedOutNavParamList, "CreateAccount">
+  NativeStackScreenProps<LogInNavStackNavParamList, "CreateAccount">
 > = ({ navigation }) => {
   const {
     handleSubmit,

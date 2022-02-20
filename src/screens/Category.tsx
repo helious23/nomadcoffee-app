@@ -13,12 +13,15 @@ const Title = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const WishLists = () => {
+const Category: React.FC<
+  NativeStackScreenProps<ShareStackNavParamList, "Category">
+> = ({ route: { params } }) => {
+  console.log(params);
   return (
     <Container>
-      <Title>WishLists</Title>
+      <Title>Category</Title>
     </Container>
   );
 };
 
-export default WishLists;
+export default Category;

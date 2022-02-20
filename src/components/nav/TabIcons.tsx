@@ -1,23 +1,35 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 
 interface ITabIconProps {
-  iconName: keyof typeof Ionicons.glyphMap;
-  focusedIconName: keyof typeof Ionicons.glyphMap;
+  IonIconsName?: keyof typeof Ionicons.glyphMap;
+  focusedIonIconsName?: keyof typeof Ionicons.glyphMap;
+  AntDesignIconsName?: keyof typeof AntDesign.glyphMap;
+  focusedAntDesignIconsName?: keyof typeof AntDesign.glyphMap;
   focused: boolean;
   color: string;
   size: number;
+  antDesign?: boolean;
 }
 
 const TabIcon: React.FC<ITabIconProps> = ({
-  iconName,
+  IonIconsName,
+  focusedIonIconsName,
+  AntDesignIconsName,
+  focusedAntDesignIconsName,
   color,
   focused,
   size,
-  focusedIconName,
+  antDesign,
 }) => {
-  return (
+  return antDesign ? (
+    <AntDesign
+      name={focused ? AntDesignIconsName : focusedAntDesignIconsName}
+      size={size}
+      color={color}
+    />
+  ) : (
     <Ionicons
-      name={focused ? iconName : focusedIconName}
+      name={focused ? IonIconsName : focusedIonIconsName}
       size={size}
       color={color}
     />

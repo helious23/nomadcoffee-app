@@ -5,6 +5,7 @@ import { LoggedOutNavParamList } from "../navTypes";
 import CreateAccount from "../screens/CreateAccount";
 import Login from "../screens/Login";
 import Welcome from "../screens/Welcome";
+import LogInNav from "./LogInNav";
 import TabsNav from "./TabsNav";
 
 const Stack = createNativeStackNavigator<LoggedOutNavParamList>();
@@ -29,6 +30,7 @@ const LoggedOutNav = () => {
               headerShown: false,
             }}
           />
+          <Stack.Screen name="LogInNav" component={LogInNav} />
         </Stack.Navigator>
       )}
     </ThemeConsumer>

@@ -6,12 +6,13 @@ import TabIcon from "../components/nav/TabIcons";
 import ShareStackNav from "./ShareStackNav";
 import Avatar from "../components/Avatar";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { isLoggedInVar } from "../apollo";
 
 const Tabs = createMaterialBottomTabNavigator<TabsNavParamList>();
 
 const TabsNav = () => {
   const { data } = useMe();
-
+  const isLoggedIn = isLoggedInVar();
   const size = 26;
   return (
     <ThemeConsumer>
@@ -35,8 +36,8 @@ const TabsNav = () => {
                   color={color}
                   focused={focused}
                   size={size}
-                  iconName="home"
-                  focusedIconName="home-outline"
+                  IonIconsName="home"
+                  focusedIonIconsName="home-outline"
                 />
               ),
             }}
@@ -52,8 +53,8 @@ const TabsNav = () => {
                   color={color}
                   focused={focused}
                   size={size}
-                  iconName="search"
-                  focusedIconName="search-outline"
+                  IonIconsName="search"
+                  focusedIonIconsName="search-outline"
                 />
               ),
             }}
@@ -77,8 +78,8 @@ const TabsNav = () => {
                   color={color}
                   focused={focused}
                   size={size}
-                  iconName="camera"
-                  focusedIconName="camera-outline"
+                  IonIconsName="camera"
+                  focusedIonIconsName="camera-outline"
                 />
               ),
             }}
@@ -92,10 +93,23 @@ const TabsNav = () => {
                   color={color}
                   focused={focused}
                   size={size}
-                  iconName="star"
-                  focusedIconName="star-outline"
+                  antDesign={true}
+                  AntDesignIconsName="star"
+                  focusedAntDesignIconsName="staro"
                 />
               ),
+            }}
+            listeners={({ navigation }) => {
+              if (isLoggedIn) {
+                return {};
+              } else {
+                return {
+                  tabPress: (event) => {
+                    event.preventDefault();
+                    navigation.navigate("LogInNav");
+                  },
+                };
+              }
             }}
           >
             {() => <ShareStackNav screenName="WishLists" />}
@@ -116,10 +130,22 @@ const TabsNav = () => {
                     color={color}
                     focused={focused}
                     size={size}
-                    iconName="person"
-                    focusedIconName="person-outline"
+                    IonIconsName="person"
+                    focusedIonIconsName="person-outline"
                   />
                 ),
+            }}
+            listeners={({ navigation }) => {
+              if (isLoggedIn) {
+                return {};
+              } else {
+                return {
+                  tabPress: (event) => {
+                    event.preventDefault();
+                    navigation.navigate("LogInNav");
+                  },
+                };
+              }
             }}
           >
             {() => <ShareStackNav screenName="Me" />}

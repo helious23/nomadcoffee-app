@@ -1,6 +1,4 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import styled from "styled-components/native";
-import { ShareStackNavParamList } from "../navTypes";
 
 const Container = styled.View`
   flex: 1;
@@ -13,12 +11,12 @@ const Title = styled.Text`
   color: ${(props) => props.theme.fontColor};
 `;
 
-const WishLists = () => {
+const EditProfile = () => {
   return (
     <Container>
-      <Title>WishLists</Title>
+      <Title>EditProfile</Title>
     </Container>
   );
 };
 
-export default WishLists;
+export default EditProfile;

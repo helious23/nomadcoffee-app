@@ -15,8 +15,10 @@ declare module "styled-components" {
     tabBarSearchBgColor: string;
     tabBarWishListsBgColor: string;
     tabBarProfileBgColor: string;
-    likeHeartColor: string;
     cameraBtnColor: string;
     cameraBtnBorderColor: string;
+    textGrey: string;
+    detailBgColor: string;
+    starColor: string;
   }
 }

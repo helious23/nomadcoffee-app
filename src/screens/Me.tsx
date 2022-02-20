@@ -3,54 +3,67 @@ import { isLoggedInVar, logUserOut } from "../apollo";
 import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ShareStackNavParamList } from "../navTypes";
+import { CoffeShopScreenNavigationProp } from "../navTypes";
 import { useNavigation } from "@react-navigation/native";
 import { useReactiveVar } from "@apollo/client";
 import { useMe } from "../hooks/useMe";
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
-  justify-content: center;
-  align-items: center;
   background-color: ${(props) => props.theme.mainBgColor};
+`;
+
+const Section = styled.TouchableOpacity`
+  padding: 16px;
 `;
 
 const Title = styled.Text`
   color: ${(props) => props.theme.fontColor};
+  font-size: 16px;
+`;
+
+const Seperator = styled.View`
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme.formBgColor};
 `;
 
 const Me = () => {
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
-  const theme = useTheme();
-  const navigation = useNavigation();
-  const { data } = useMe();
+  const navigation = useNavigation<CoffeShopScreenNavigationProp>();
+  const { data: userData } = useMe();
+
   useEffect(() => {
-    if (data?.me) {
+    if (userData?.me) {
       navigation.setOptions({
-        headerTitle: data.me.username,
+        headerTitle: userData.me.username,
       });
     }
   }, []);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () =>
-        isLoggedIn ? (
-          <Ionicons
-            style={{ marginRight: 5 }}
-            onPress={() => logUserOut()}
-            name="log-out-outline"
-            size={28}
-            color={theme.fontColor}
-          />
-        ) : null,
-    });
-  }, [isLoggedIn]);
+  const userLogOut = () => {
+    logUserOut();
+    navigation.navigate("Home");
+  };
+
+  const goToProfile = () => {
+    if (userData?.me) {
+      navigation.navigate("Profile", {
+        username: userData?.me?.username,
+        id: userData?.me?.id,
+      });
+    }
+  };
 
   return (
     <Container>
-      <Title>Me</Title>
+      <Section onPress={goToProfile}>
+        <Title>프로필 보기</Title>
+      </Section>
+      <Seperator />
+      <Section onPress={userLogOut}>
+        <Title>로그아웃</Title>
+      </Section>
+      <Seperator />
     </Container>
   );
 };

@@ -10,6 +10,9 @@ import ShopDetail from "../screens/ShopDetail";
 import { isLoggedInVar } from "../apollo";
 import LogInNav from "./LogInNav";
 import Me from "../screens/Me";
+import Category from "../screens/Category";
+import CreatReview from "../screens/CreateReview";
+import EditProfile from "../screens/EditProfile";
 
 const Stack = createNativeStackNavigator<ShareStackNavParamList>();
 
@@ -64,17 +67,13 @@ const ShareStackNav: React.FC<IShareStackNavProps> = ({ screenName }) => {
             <Stack.Screen name="WishLists" component={WishLists} />
           ) : null}
           {screenName === "Me" ? (
-            <Stack.Screen
-              name="Me"
-              options={{
-                headerShown: isLoggedIn ? true : false,
-              }}
-            >
-              {isLoggedIn ? () => <Me /> : () => <LogInNav />}
-            </Stack.Screen>
+            <Stack.Screen name="Me" component={Me} />
           ) : null}
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="PhotoDetail" component={ShopDetail} />
+          <Stack.Screen name="ShopDetail" component={ShopDetail} />
+          <Stack.Screen name="Category" component={Category} />
+          <Stack.Screen name="CreatReview" component={CreatReview} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
         </Stack.Navigator>
       )}
     </ThemeConsumer>

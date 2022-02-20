@@ -3,6 +3,8 @@ import { onError } from "@apollo/client/link/error";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
+import { CachePersistor, AsyncStorageWrapper } from "apollo3-cache-persist";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 export const TOKEN = "TOKEN";
 
@@ -51,7 +53,21 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-export const cache = new InMemoryCache();
+export const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        seeCoffeeShops: offsetLimitPagination(),
+        searchShops: offsetLimitPagination(),
+      },
+    },
+    User: {
+      fields: {
+        shops: offsetLimitPagination(),
+      },
+    },
+  },
+});
 
 export const client = new ApolloClient({
   link: authLink.concat(onErrorLink).concat(uploadHttpLink),

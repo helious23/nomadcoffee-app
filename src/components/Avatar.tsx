@@ -25,7 +25,7 @@ const Avatar: React.FC<IAvatarProps> = ({ avatar, size, focused }) => {
       source={{ uri: avatar }}
       resizeMode="cover"
       style={{
-        borderColor: focused ? theme.fontColor : theme.tabBarBrodrColor,
+        borderColor: focused ? theme.fontColor : theme.tabBarBorderColor,
         borderWidth: focused ? 1 : 0.2,
       }}
     />

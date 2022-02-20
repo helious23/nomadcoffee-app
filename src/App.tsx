@@ -2,20 +2,21 @@ import { registerRootComponent } from "expo";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import { client, isLoggedInVar, TOKEN, tokenVar } from "./apollo";
+import { cache, client, isLoggedInVar, TOKEN, tokenVar } from "./apollo";
 import { NavigationContainer } from "@react-navigation/native";
 import { darkTheme, lightTheme } from "./theme";
 import { ThemeProvider } from "styled-components/native";
-import LoggedOutNav from "./navigators/LoggedOutNav";
-import LoggedInNav from "./navigators/LoggedInNav";
 import { Provider as PaperProvider } from "react-native-paper";
 import RootNav from "./navigators/RootNav";
+import { AsyncStorageWrapper, CachePersistor } from "apollo3-cache-persist";
+import LoggedInNav from "./navigators/LoggedInNav";
+import LoggedOutNav from "./navigators/LoggedOutNav";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ export default function App() {
     setLoading(false);
   };
   const preloadAssets = () => {
-    const fontsToLoad = [Ionicons.font];
+    const fontsToLoad = [Ionicons.font, AntDesign.font, FontAwesome5.font];
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
     const imagesToLoad = [
       require("./assets/logo_black.png"),
@@ -39,9 +40,16 @@ export default function App() {
       isLoggedInVar(true);
       tokenVar(token);
     }
+    const persistor = new CachePersistor({
+      cache,
+      storage: new AsyncStorageWrapper(AsyncStorage),
+    });
+    // await persistor.restore();
+    // await persistor.purge();
     preloadAssets();
   };
 
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const isDark = useColorScheme() === "dark";
 
   if (loading) {
@@ -59,6 +67,7 @@ export default function App() {
         <PaperProvider>
           <NavigationContainer>
             <RootNav />
+            {/* {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />} */}
             <StatusBar style="auto" />
           </NavigationContainer>
         </PaperProvider>
