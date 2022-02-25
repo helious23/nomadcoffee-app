@@ -24,3 +24,17 @@ Making NomadCoffee App with React native, Expo, Apollo client, Graphql, Typescri
 - [x] Home tab
 - [x] Infinite Scroll
 - [x] Pull to refresh
+
+### Day 32, 33
+
+- [x] Search tab
+
+### To do
+- [ ] Edit Profile
+- [ ] Wish Lists
+- [ ] Create review
+- [ ] Edit review
+- [ ] Delete review
+- [ ] Create CoffeeShop
+- [ ] Edit CoffeeShop
+- [ ] Delete CoffeeShop
