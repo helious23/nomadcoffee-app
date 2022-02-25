@@ -58,6 +58,8 @@ interface ISearhFormProps {
   page: number;
 }
 
+// I already made Search screens. Sorry for that :)
+
 const Search: React.FC<
   NativeStackScreenProps<ShareStackNavParamList, "Search">
 > = ({ navigation }) => {
